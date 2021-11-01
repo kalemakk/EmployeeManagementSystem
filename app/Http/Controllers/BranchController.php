@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Branch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BranchController extends Controller
 {
@@ -38,7 +39,26 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+        ]);
+
+        $branch = Branch::create([
+            'name' => $request->name,
+            'location' => $request->location,
+            'created_by' => Auth::user()->id,
+            'manager' => Auth::user()->id
+            ]);
+        if ($branch){
+
+            return redirect('branches.index')->with('success','Branch Created Successfully');
+
+        }else{
+
+            return redirect('branches.index')->with('error','Failed to create Branch');
+
+        }
     }
 
     /**
@@ -47,9 +67,10 @@ class BranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Branch $branch)
     {
-        //
+//        dd($branch);
+        return view('dashboard.branch',compact('branch'));
     }
 
     /**

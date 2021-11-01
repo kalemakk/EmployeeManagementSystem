@@ -6,12 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Branches</h1>
+                        <h1 class="m-0">Branch</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                            <li class="breadcrumb-item active">Branches</li>
+                            <li class="breadcrumb-item active">Branch</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -89,40 +89,40 @@
 
                                                     <div class="row">
                                                         <div class="col-sm-12 col-md-6 col-lg-6">
-                                                            <h5>Email: <span style="font-size: large">{{$branch->email}}</span></h5>
+                                                            <h5>Location: <span style="font-size: large">{{$branch->location}}</span></h5>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                                            <h5>Age: <span style="font-size: large">{{$branch->getAge($branch->date_of_birth)}}</span></h5>
-                                                        </div>
+{{--                                                        <div class="col-sm-12 col-md-6 col-lg-6">--}}
+{{--                                                            <h5>Age: <span style="font-size: large">{{$branch->getAge($branch->date_of_birth)}}</span></h5>--}}
+{{--                                                        </div>--}}
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                                            <h5>NIN: <span style="font-size: large">{{$branch->nin}}</span></h5>
-                                                        </div>
+{{--                                                        <div class="col-sm-12 col-md-6 col-lg-6">--}}
+{{--                                                            <h5>NIN: <span style="font-size: large">{{$branch->nin}}</span></h5>--}}
+{{--                                                        </div>--}}
 
                                                     </div>
                                                 </div>
-                                                <div class="post">
+{{--                                                <div class="post">--}}
 
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                                            <h5>Nationality: <span style="font-size: large">{{$branch->nationality}}</span></h5>
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                                            <h5>District: <span style="font-size: large">{{$branch->district}}</span></h5>
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="row">--}}
+{{--                                                        <div class="col-sm-12 col-md-6 col-lg-6">--}}
+{{--                                                            <h5>Nationality: <span style="font-size: large">{{$branch->nationality}}</span></h5>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="col-sm-12 col-md-6 col-lg-6">--}}
+{{--                                                            <h5>District: <span style="font-size: large">{{$branch->district}}</span></h5>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
 
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                                            <h5>Village: <span style="font-size: large">{{$branch->village}}</span></h5>
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-6 col-lg-6">
-                                                            <h5>Street: <span style="font-size: large">{{$branch->street}}</span></h5>
-                                                        </div>
-                                                    </div>
+{{--                                                    <div class="row">--}}
+{{--                                                        <div class="col-sm-12 col-md-6 col-lg-6">--}}
+{{--                                                            <h5>Village: <span style="font-size: large">{{$branch->village}}</span></h5>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="col-sm-12 col-md-6 col-lg-6">--}}
+{{--                                                            <h5>Street: <span style="font-size: large">{{$branch->street}}</span></h5>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
 
-                                                </div>
+{{--                                                </div>--}}
 
                                                 <div class="post">
                                                     <div class="row">
@@ -161,12 +161,12 @@
     {{--add new customer--}}
     <div class="modal fade" id="edit-customer">
         <div class="modal-dialog modal-lg">
-            <form method="POST" action="{{ route('update-customer',['customer',$branch]) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('branches.update',['branch',$branch]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Customer's Details</h5>
+                        <h5 class="modal-title">Edit Branch Details</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -187,99 +187,100 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email"
-                                               class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                               name="email" value="{{$branch->email}}" placeholder="Enter Email">
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('email')}}</strong>
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <label for="dob">Date of Birth</label>
-                                        <input type="date"
-                                               class="form-control form-control-sm @error('date_of_birth') is-invalid @enderror"
-                                               name="date_of_birth" value="{{$branch->date_of_birth}}"
-                                               placeholder="Enter Date of Birth">
-                                        @error('date_of_birth')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{$errors->first('date_of_birth')}}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="village">Village</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('village') is-invalid @enderror"
-                                           name="village" value="{{$branch->village}}" placeholder="Enter Village">
-                                    @error('village')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('village')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="district">District</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('district') is-invalid @enderror"
-                                           name="district" value="{{$branch->district}}" placeholder="Enter District">
-                                    @error('district')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('district')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="district">Street</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('street') is-invalid @enderror"
-                                           name="street" value="{{$branch->street}}" placeholder="Enter Street">
-                                    @error('street')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('street')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="nationality">Nationality</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('nationality') is-invalid @enderror"
-                                           name="nationality" value="{{$branch->nationality}}"
-                                           placeholder="Enter Nationality">
-                                    @error('nationality')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('nationality')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="nationality">NIN</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('nin') is-invalid @enderror"
-                                           name="nin" value="{{$branch->nin}}" placeholder="Enter NIN">
-                                    @error('nin')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('nin')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+{{--                                <div class="col-lg-12 col-md-12 col-sm-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="email">Email</label>--}}
+{{--                                        <input type="email"--}}
+{{--                                               class="form-control form-control-sm @error('email') is-invalid @enderror"--}}
+{{--                                               name="email" value="{{$branch->email}}" placeholder="Enter Email">--}}
+{{--                                        @error('email')--}}
+{{--                                        <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{$errors->first('email')}}</strong>--}}
+{{--                                    </span>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-lg-12 col-md-12 col-sm-12">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="dob">Date of Birth</label>--}}
+{{--                                        <input type="date"--}}
+{{--                                               class="form-control form-control-sm @error('date_of_birth') is-invalid @enderror"--}}
+{{--                                               name="date_of_birth" value="{{$branch->date_of_birth}}"--}}
+{{--                                               placeholder="Enter Date of Birth">--}}
+{{--                                        @error('date_of_birth')--}}
+{{--                                        <span class="invalid-feedback" role="alert">--}}
+{{--                                            <strong>{{$errors->first('date_of_birth')}}</strong>--}}
+{{--                                        </span>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-12 col-md-12 col-sm-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="village">Village</label>--}}
+{{--                                    <input type="text"--}}
+{{--                                           class="form-control form-control-sm @error('village') is-invalid @enderror"--}}
+{{--                                           name="village" value="{{$branch->village}}" placeholder="Enter Village">--}}
+{{--                                    @error('village')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{$errors->first('village')}}</strong>--}}
+{{--                                    </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-12 col-md-12 col-sm-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="district">District</label>--}}
+{{--                                    <input type="text"--}}
+{{--                                           class="form-control form-control-sm @error('district') is-invalid @enderror"--}}
+{{--                                           name="district" value="{{$branch->district}}" placeholder="Enter District">--}}
+{{--                                    @error('district')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{$errors->first('district')}}</strong>--}}
+{{--                                    </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-12 col-md-12 col-sm-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="district">Street</label>--}}
+{{--                                    <input type="text"--}}
+{{--                                           class="form-control form-control-sm @error('street') is-invalid @enderror"--}}
+{{--                                           name="street" value="{{$branch->street}}" placeholder="Enter Street">--}}
+{{--                                    @error('street')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{$errors->first('street')}}</strong>--}}
+{{--                                    </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-12 col-md-12 col-sm-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="nationality">Nationality</label>--}}
+{{--                                    <input type="text"--}}
+{{--                                           class="form-control form-control-sm @error('nationality') is-invalid @enderror"--}}
+{{--                                           name="nationality" value="{{$branch->nationality}}"--}}
+{{--                                           placeholder="Enter Nationality">--}}
+{{--                                    @error('nationality')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{$errors->first('nationality')}}</strong>--}}
+{{--                                    </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-lg-12 col-md-12 col-sm-12">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="nationality">NIN</label>--}}
+{{--                                    <input type="text"--}}
+{{--                                           class="form-control form-control-sm @error('nin') is-invalid @enderror"--}}
+{{--                                           name="nin" value="{{$branch->nin}}" placeholder="Enter NIN">--}}
+{{--                                    @error('nin')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{$errors->first('nin')}}</strong>--}}
+{{--                                    </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             </div>
                             <div class="btn-group">
                                 <button type="reset" class="btn btn-warning">Clear Form</button>

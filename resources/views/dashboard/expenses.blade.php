@@ -50,10 +50,9 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Age</th>
-                                        <th>District</th>
+                                        <th>Branch</th>
+                                        <th>Item</th>
+                                        <th>Amount</th>
                                         <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
@@ -61,11 +60,10 @@
                                     <tbody>
                                     @foreach($expenses as $expense)
                                         <tr>
-                                            <td>{{$expense->name}}</td>
-                                            <td>{{$expense->email}}</td>
-                                            <td>{{$expense->getAge($expense->date_of_birth)}}</td>
-                                            <td>{{$expense->district}}</td>
-                                            <td>{{$expense->user->name}}</td>
+                                            <td>{{$expense->branch->name}}</td>
+                                            <td>{{$expense->item}}</td>
+                                            <td>{{$expense->amount}}</td>
+                                            <td>{{$expense->createdBy->name}}</td>
                                             <td>
                                                 <a href="{{route('expenses.show',['expense'=>$expense])}}" style="color: black">
                                                     <button type="button" class="btn btn-primary btn-block btn-flat" style="color: white;font-size: 16px">View</button>
@@ -147,7 +145,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add New Customer</h5>
+                        <h5 class="modal-title">Add New Expense</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -157,113 +155,62 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="name">Name</label>
+                                        <label for="name">Item</label>
                                         <input type="text"
-                                               class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                               name="name" value="{{old('name')}}" placeholder="Enter Name" required>
-                                        @error('name')
+                                               class="form-control form-control-sm @error('item') is-invalid @enderror"
+                                               name="item" value="{{old('item')}}" placeholder="Enter Item" required>
+                                        @error('item')
                                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('name')}}</strong>
+                                        <strong>{{$errors->first('item')}}</strong>
+                                    </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <input type="text"
+                                               class="form-control form-control-sm @error('amount') is-invalid @enderror"
+                                               name="amount" value="{{old('amount')}}" placeholder="Enter Amount" >
+                                        @error('amount')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{$errors->first('amount')}}</strong>
                                     </span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email"
-                                               class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                               name="email" value="{{old('email')}}" placeholder="Enter Email">
-                                        @error('email')
+                                        <label for="district">Branch</label>
+                                        <input type="text"
+                                               class="form-control form-control-sm @error('street') is-invalid @enderror"
+                                               name="street" value="{{old('street')}}" placeholder="Enter Street" >
+                                        @error('street')
                                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('email')}}</strong>
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <label for="dob">Date of Birth</label>
-                                        <input type="date"
-                                               class="form-control form-control-sm @error('date_of_birth') is-invalid @enderror"
-                                               name="date_of_birth" value="{{old('date_of_birth')}}"
-                                               placeholder="Enter Date of Birth">
-                                        @error('date_of_birth')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{$errors->first('date_of_birth')}}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="village">Village</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('village') is-invalid @enderror"
-                                           name="village" value="{{old('village')}}" placeholder="Enter Village" >
-                                    @error('village')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('village')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="district">District</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('district') is-invalid @enderror"
-                                           name="district" value="{{old('district')}}" placeholder="Enter District" >
-                                    @error('district')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('district')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="district">Street</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('street') is-invalid @enderror"
-                                           name="street" value="{{old('street')}}" placeholder="Enter Street" >
-                                    @error('street')
-                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{$errors->first('street')}}</strong>
                                     </span>
-                                    @enderror
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="nationality">Nationality</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('nationality') is-invalid @enderror"
-                                           name="nationality" value="{{old('nationality')}}" placeholder="Enter Nationality" >
-                                    @error('nationality')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('nationality')}}</strong>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="desc">Description</label>
+
+                                        <textarea class="form-control form-control-sm @error('desc') is-invalid @enderror" rows="3" name="desc" placeholder="Enter Description">{{old('desc')}}</textarea>
+
+                                        @error('desc')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{$errors->first('desc')}}</strong>
                                     </span>
-                                    @enderror
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <label for="nationality">NIN</label>
-                                    <input type="text"
-                                           class="form-control form-control-sm @error('nin') is-invalid @enderror"
-                                           name="nin" value="{{old('nin')}}" placeholder="Enter NIN" >
-                                    @error('nin')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('nin')}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
+
                             <div class="btn-group">
                                 <button type="reset" class="btn btn-warning">Clear Form</button>
-                                <button type="submit" class="btn btn-primary">Save Customer</button>
+                                <button type="submit" class="btn btn-primary">Save Expense</button>
                             </div>
                         </div>
                     </div>
