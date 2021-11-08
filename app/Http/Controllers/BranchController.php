@@ -52,11 +52,11 @@ class BranchController extends Controller
             ]);
         if ($branch){
 
-            return redirect('branches.index')->with('success','Branch Created Successfully');
+            return redirect()->route('branches.index')->with('success','Branch Created Successfully');
 
         }else{
 
-            return redirect('branches.index')->with('error','Failed to create Branch');
+            return redirect()->route('branches.index')->with('error','Failed to create Branch');
 
         }
     }

@@ -28,7 +28,7 @@ class Employee extends Model
     ];
 
     protected $casts = [
-        'joined' => 'datetime',
+        'joined' => 'date',
     ];
 
     public function department(){
@@ -38,7 +38,15 @@ class Employee extends Model
     public function fullName(){
         return $this->first_name." ".$this->last_name;
     }
-    public function branch(){
-        return $this->belongsTo(Branch::class,'branch');
+    public function branchName(){
+        return $this->belongsTo(Branch::class,'branch')->withDefault();
+    }
+
+    public static function generatePassword($firstName, $lastName){
+        return strtolower($firstName.$lastName);
+    }
+
+    public static function employeeNumber(){
+
     }
 }

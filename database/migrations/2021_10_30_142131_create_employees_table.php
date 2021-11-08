@@ -20,7 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('location');
             $table->string('email')->unique();
             $table->text('password')->nullable();
-            $table->dateTime('joined');
+            $table->date('joined');
             $table->foreignId('branch')->nullable()->constrained('branches');
             $table->text('employee_id')->nullable();
             $table->enum('status',['active','pending','left'])->default('active');

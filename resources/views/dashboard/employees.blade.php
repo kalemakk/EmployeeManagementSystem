@@ -60,10 +60,10 @@
                                     <tbody>
                                     @foreach($employees as $employee)
                                         <tr>
-                                            <td>{{$employee->name}}</td>
+                                            <td>{{$employee->fullName()}}</td>
                                             <td>{{$employee->email}}</td>
                                             <td>{{$employee->position}}</td>
-                                            <td>{{$employee->branch->name}}</td>
+                                            <td>{{$employee->branchName->name}}</td>
                                             <td>
                                                 <a href="{{route('employees.show',['employee'=>$employee])}}" style="color: black">
                                                     <button type="button" class="btn btn-primary btn-block btn-flat" style="color: white;font-size: 16px">View</button>
@@ -234,7 +234,6 @@
                                             </div>
                                         </div>
 
-
 {{--                                        <input type="text"--}}
 {{--                                               class="form-control form-control-sm @error('position') is-invalid @enderror"--}}
 {{--                                               name="position" value="{{old('position')}}" placeholder="Enter Position" required>--}}
@@ -341,6 +340,10 @@
             @if(Session::has('errors'))
             $('#add-dept').modal({show: true})
             @endif
+        });
+        //Date picker
+        $('#reservationdate').datetimepicker({
+            format: 'L'
         });
     </script>
 
