@@ -182,13 +182,17 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="district">Branch</label>
-                                        <input type="text"
-                                               class="form-control form-control-sm @error('street') is-invalid @enderror"
-                                               name="street" value="{{old('street')}}" placeholder="Enter Street" >
-                                        @error('street')
+                                        <label for="branch">Branch</label>
+                                            <select name="branch" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;" required>
+                                                <option value="" selected>Select Branch</option>
+                                                @foreach($branches as $branch)
+                                                    <option value={{$branch->id}}>{{$branch->name}}</option>
+                                                @endforeach
+                                            </select>
+
+                                        @error('branch')
                                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{$errors->first('street')}}</strong>
+                                        <strong>{{$errors->first('branch')}}</strong>
                                     </span>
                                         @enderror
                                     </div>

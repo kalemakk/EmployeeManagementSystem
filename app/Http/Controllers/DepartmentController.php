@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Department;
+use App\Services\Feeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
@@ -13,7 +17,10 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $depts = Department::with(['user','branch'])
+            ->get();
+        $branches = Feeder::branches();
+        return view('dashboard.depts',compact('depts','branches'));
     }
 
     /**
@@ -34,7 +41,22 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'unique:departments'
+        ]);
+
+        $dept = Department::create([
+            'name' => $request->name,
+            'branch_id' => $request->branch,
+            'manager' => Auth::user()->id
+
+        ]);
+        if ($dept){
+            return redirect()->route('departments.index')->with('success','Department saved successfully.');
+        }else{
+            return redirect()->route('departments.index')->with('error','Department failed to save.');
+
+        }
     }
 
     /**
@@ -43,9 +65,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Department $department)
     {
-        //
+        return view('dashboard.dept',compact('department'));
     }
 
     /**

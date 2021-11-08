@@ -38,4 +38,7 @@ class Employee extends Model
     public function fullName(){
         return $this->first_name." ".$this->last_name;
     }
+    public function branch(){
+        return $this->belongsTo(Branch::class,'branch');
+    }
 }

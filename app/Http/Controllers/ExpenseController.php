@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use App\Services\Feeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -16,7 +18,8 @@ class ExpenseController extends Controller
     {
         $expenses = Expense::with('branch')
             ->get();
-        return view('dashboard.expenses',compact('expenses'));
+        $branches = Feeder::branches();
+        return view('dashboard.expenses',compact('expenses','branches'));
     }
 
     /**
@@ -37,7 +40,26 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+        ]);
+
+        $expense = Expense::create([
+            'branch_id' => $request->branch,
+            'item' => $request->item,
+            'desc' => $request->desc,
+            'amount' => $request->amount,
+            'approved_by' => Auth::user()->id,
+            'created_by' => Auth::user()->id
+        ]);
+
+        if ($expense){
+
+            return redirect()->route('expenses.index')->with('success','Expense successfully added.');
+
+        }else{
+            return redirect()->route('expenses.index')->with('error','Expense Failed to Save.');
+        }
     }
 
     /**

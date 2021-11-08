@@ -28,7 +28,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

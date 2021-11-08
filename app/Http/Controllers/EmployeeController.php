@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use App\Services\Feeder;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -13,7 +15,11 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::with('branch','department')
+            ->get();
+        $branches = Feeder::branches();
+        $depts = Feeder::depts();
+        return view('dashboard.employees',compact('employees','branches','depts'));
     }
 
     /**
