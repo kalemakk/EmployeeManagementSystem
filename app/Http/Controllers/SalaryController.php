@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Salary;
+use App\Services\Feeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SalaryController extends Controller
 {
@@ -13,7 +16,10 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        //
+        $salaries = Salary::with(['user','employee'])
+            ->get();
+        $employees = Feeder::employees();
+        return view('dashboard.salaries',compact('salaries','employees'));
     }
 
     /**
@@ -34,7 +40,21 @@ class SalaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+        ]);
+
+        $salary = Salary::create([
+            'amount' => encrypt($request->amount),
+            'status' ,
+            'employee_id' => $request->employee,
+            'created_by_id' => Auth::user()->id
+        ]);
+        if ($salary){
+            return redirect()->route('salaries.index')->with('success','Employee Salary Saved Successfully.');
+        }else{
+            return redirect()->route('salaries.index')->with('error','Failed to save Employee Salary.');
+        }
     }
 
     /**

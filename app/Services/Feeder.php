@@ -24,4 +24,8 @@ class Feeder
         return DB::table('departments')->select(['id','name'])->get();
     }
 
+    public static function employees(){
+        return DB::table('employees')->select(['id','first_name','last_name'])->get();
+    }
+
 }
